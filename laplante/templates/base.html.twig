@@ -38,6 +38,26 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{path('app_default')}}">Home</a></li>
                         </ul>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <form class="d-flex gap-3">
+                                <a class="btn btn-outline-dark" href="{{ path('app_logout') }}">          
+                                    <i class="bi bi-box-arrow-right me-1"></i>
+                                    Se déconnecter 
+                                </a>
+
+                                <a class="btn btn-outline-dark" href="{{ path('app_user_show', {id: user.id}) }}">          
+                                    <i class="bi bi-person-circle me-1"></i>
+                                    Profil 
+                                </a>
+                            </form>
+                        {% else %}
+                            <form class="d-flex gap-3">
+                                <a class="btn btn-outline-dark" href="{{ path('app_register') }}">          
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>
+                                    S'inscrire 
+                                </a>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
