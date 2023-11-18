@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .line{
+        height: 48vh;
+        width: 0.7px;
+    }
+    .divLine{
+        width: 10%;
+    }
+    .left{
+        width: 45%;
+    }
+    .right{
+        width: 45%;
+        text-align: center;
+    }
+</style>
+<section class="">
+    <div class="container px-4 px-lg-5 mt-5 d-flex align-items-center w-100 container-about" style="flex-direction: row;">
+        <div class="left">
+            <h1>Ajouter un produit </h1>
+
+            {{ form_start(NewProductForm) }}
+
+            <div class="mb-3 w-50">
+                {{ form_row(NewProductForm.libelle, {
+                    label: 'Libelle du produit :',
+                    attr: {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+
+            <div class="mb-3 w-50">
+                {{ form_row(NewProductForm.prix, {
+                    label: 'Prix du produit :',
+                    attr: {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+
+            <div class="mb-3 w-50">
+                {{ form_row(NewProductForm.description, {
+                    label: 'Description du produit :',
+                    attr: {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+
+            <div class="mb-3 w-50">
+                {{ form_row(NewProductForm.note, {
+                    label: 'Note du produit :',
+                    attr: {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+
+            <button class="btn btn-dark" type="submit">Ajouter le produit</button>
+
+            {{ form_end(NewProductForm) }}
+        </div>
+        <div class="divLine d-flex justify-content-center align-items-center">
+            <div class="line bg-dark rounded-pill"></div>
+        </div>
+        <div class="right">
+            <img src="{{ asset('img/contact.webp') }}" alt="Description de l'image">
+        </div>
+    </div>
+</section>
+    
+{% endblock %}
