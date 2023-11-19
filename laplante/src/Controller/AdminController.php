@@ -25,8 +25,6 @@ class AdminController extends AbstractController
             'products' => $liste,
             'user' => $user,
         ]);
-
-        
     }
 
     #[Route('/admin/product/{id}', name: 'admin_product_show', requirements: ['id' => '\d+'])]
