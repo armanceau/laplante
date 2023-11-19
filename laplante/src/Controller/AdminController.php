@@ -19,16 +19,21 @@ class AdminController extends AbstractController
     {
 
         $liste = $repos->findAll();
+        $user = $this->getUser();
 
         return $this->render('admin/index.html.twig',[
             'products' => $liste,
+            'user' => $user,
         ]);
+
+        
     }
 
     #[Route('/admin/product/{id}', name: 'admin_product_show', requirements: ['id' => '\d+'])]
     public function show(int $id, ProductRepository $repos): Response
     {
         $product = $repos->find($id);
+        $user = $this->getUser();
 
         if (!$product) {
             throw $this->createNotFoundException('Aucun produit trouvé pour cet ID : ' . $id);
@@ -36,6 +41,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/show.html.twig', [
             'product' => $product,
+            'user' => $user,
         ]);
     }
 
@@ -43,6 +49,7 @@ class AdminController extends AbstractController
     public function add(Request $request, entityManagerInterface $entityManager): Response
     {
         $product = new Product();
+        $user = $this->getUser();
 
         $form = $this->createForm(AddProductType::class, $product);
         $form->handleRequest($request);
@@ -62,6 +69,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/AddProduct.html.twig', [
             'NewProductForm' => $form->createView(),
+            'user' => $user,
         ]);
     }
 
@@ -81,6 +89,7 @@ class AdminController extends AbstractController
     public function edit(int $id, ProductRepository $repos, Request $request, entityManagerInterface $entityManager): Response
     {
         $product = $repos->find($id);
+        $user = $this->getUser();
 
         $form = $this->createForm(EditProductType::class, $product);
         $form->handleRequest($request);
@@ -97,6 +106,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/Editproduct.html.twig', [
             'NewProductForm' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }
