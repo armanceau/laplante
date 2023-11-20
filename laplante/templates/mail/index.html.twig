@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+{% block body %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <h1>Formulaire de contact </h1>
+
+        {{ form_start(form) }}
+        
+        <div class="mb-3">
+            {{ form_row(form.Email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.Sujet, {'attr': {'class': 'form-control', 'placeholder': 'Sujet'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.Contenu, {'attr': {'class': 'form-control', 'placeholder': 'Contenu'}}) }}
+        </div>
+
+        {{ form_row(form.Envoyer, {'attr': {'class': 'btn btn-primary'}}) }}
+
+        {{ form_end(form) }}
+    </div>
+</section>
+
+{% endblock %}

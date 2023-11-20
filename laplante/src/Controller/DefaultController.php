@@ -21,4 +21,13 @@ class DefaultController extends AbstractController
             'products' => $liste,
         ]);
     }
+
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        $user = $this->getUser();
+        return $this->render('default/about.html.twig',[
+            'user' => $user,
+        ]);
+    }
 }
