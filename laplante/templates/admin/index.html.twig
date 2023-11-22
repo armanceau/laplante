@@ -8,71 +8,59 @@
         width: 100%;
         bottom: 0;
     }
-
-    td, th{
-        text-align: center;
-    }
 </style>
 {% endblock %}
 {% block body %}
 
 <!-- Header-->
-<header class="bg-dark py-1">
+<header class="bg-dark py-3">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Contact in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With myAgenda</p>
+            <h1 class="display-4 fw-bolder">Style your space</h1>
+            <p class="lead fw-normal text-white-50 mb-0">With LaPlante 🌱 </p>
         </div>
     </div>
 </header>
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Bravo !</strong> {{message}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-        <a class="btn btn-outline-dark mt-auto" href="{{path('admin_product_add')}}">
-            <i class="bi bi-plus-circle-fill me-1"></i>
-            Ajouter un produit
-        </a>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Voir</th>
-                    <th scope="col">Libelle</th>
-                    <th scope="col">Prix (€)</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Supprimer</th>
-                    <th scope="col">Mettre à jour</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                        <tr>
-                            <th scope="row"><a class="btn btn-outline-dark mt-auto" href="{{ path('admin_product_show', {id: product.id}) }}"><i class="bi bi-search"></i></a></th>
-                            <th>{{product.libelle}}</th>
-                            <td>{{product.prix}}</td>
-                            <td>{{product.note}}</td>
-                            <td>                            
-                                <a class="btn btn-outline-danger" href="{{ path('admin_product_delete', {id: product.id}) }}" onclick="return confirm('Etes vous sur de vouloir supprimer ce produit ?')">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </td>
-                            <td>                            
-                                <a class="btn btn-outline-primary" href="{{ path('admin_product_edit', {id: product.id}) }}">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-              </table>
-            
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img src="{{ asset('img/users.webp') }}" alt="Description de l'image">
+
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Utilisateurs</h5>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_admin_user') }}">View options</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img src="{{ asset('img/plant.png') }}" alt="Description de l'image">
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Produits</h5>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_admin_product') }}">View options</a></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -80,4 +68,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 {% endblock %}
-

@@ -9,6 +9,8 @@ use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Product;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Form\AddProductType;
 use App\Form\EditProductType;
 
@@ -27,6 +29,19 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/product', name: 'app_admin_product')]
+    public function indexProduct(ProductRepository $repos): Response
+    {
+
+        $liste = $repos->findAll();
+        $user = $this->getUser();
+
+        return $this->render('admin/IndexProduct.html.twig',[
+            'products' => $liste,
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/admin/product/{id}', name: 'admin_product_show', requirements: ['id' => '\d+'])]
     public function show(int $id, ProductRepository $repos): Response
     {
@@ -37,7 +52,7 @@ class AdminController extends AbstractController
             throw $this->createNotFoundException('Aucun produit trouvé pour cet ID : ' . $id);
         }
 
-        return $this->render('admin/show.html.twig', [
+        return $this->render('admin/ShowProduct.html.twig', [
             'product' => $product,
             'user' => $user,
         ]);
@@ -80,7 +95,7 @@ class AdminController extends AbstractController
 
         $this->addFlash('success',"le produit a bien été supprimé");
 
-        return $this->redirectToRoute('app_admin');   
+        return $this->redirectToRoute('app_admin_product');   
     }
 
     #[Route('/admin/product/edit/{id}', name: 'admin_product_edit', requirements: ['id' => '\d+'])]
@@ -104,6 +119,71 @@ class AdminController extends AbstractController
 
         return $this->render('admin/Editproduct.html.twig', [
             'NewProductForm' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/admin/user', name: 'app_admin_user')]
+    public function indexUser(USerRepository $repos): Response
+    {
+
+        $liste = $repos->findAll();
+        $user = $this->getUser();
+
+        return $this->render('admin/IndexUser.html.twig',[
+            'users' => $liste,
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/admin/user/{id}', name: 'admin_user_show', requirements: ['id' => '\d+'])]
+    public function showUser(int $id, UserRepository $repos): Response
+    {
+        $userRepos = $repos->find($id);
+        $user = $this->getUser();
+
+        if (!$userRepos) {
+            throw $this->createNotFoundException('Aucun produit trouvé pour cet ID : ' . $id);
+        }
+
+        return $this->render('admin/ShowUser.html.twig', [
+            'userRepos' => $userRepos,
+            'user' => $user,
+        ]);
+    }
+    #[Route('/admin/user/add', name: 'admin_user_add')]
+    public function addUser(Request $request, entityManagerInterface $entityManager): Response
+    {
+       
+        $user = $this->getUser();
+
+
+        return $this->render('admin/AddUser.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/admin/user/delete/{id}', name: 'admin_user_delete')]
+    public function deleteUser(int $id, UserRepository $repos, Request $request): Response
+    {
+        $user = $repos->find($id);
+
+        $repos->remove($user);
+
+        $this->addFlash('success',"l'utilisateur a bien été supprimé");
+
+        return $this->redirectToRoute('app_admin_user');   
+    }
+
+    #[Route('/admin/user/edit/{id}', name: 'admin_user_edit', requirements: ['id' => '\d+'])]
+    public function editUser(int $id, UserRepository $repos, Request $request, entityManagerInterface $entityManager): Response
+    {
+        
+        $user = $this->getUser();
+
+        
+
+        return $this->render('admin/EditUser.html.twig', [
             'user' => $user,
         ]);
     }
