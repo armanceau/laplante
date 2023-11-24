@@ -41,7 +41,7 @@ LaPlante est une application web développée en Symfony 6 qui vous permet de vo
 - Symfony 6.0
 - Php 8.0
 - WampServer
-- MailTrap
+- Mailtrap
 
 ## 🧑‍💻 Installations
 
@@ -74,6 +74,8 @@ symfony serve
 ## Documentation
 
 - [Symfony](https://symfony.com/)
+- [Mailtrap](https://mailtrap.io/)
+- [WampServer](https://www.wampserver.com/)
 
 
 ## Authors
